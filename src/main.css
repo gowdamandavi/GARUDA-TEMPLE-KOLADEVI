@@ -1,0 +1,160 @@
+/* =========================================================
+   GLOBAL BASE STYLES — STABLE FOUNDATION
+   ========================================================= */
+
+import "./index.css";
+
+/* Universal box model */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+/* Root font sizing
+   (Maintained intentionally for typographic consistency) */
+
+html {
+    font-size: 14px;
+    /* 1rem = 14px */
+}
+
+
+/* Body typography and rendering */
+
+body {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.8;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1f1f1f;
+    background-color: #f8f5ee;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* =========================================================
+   HEADINGS — BASELINE DEFINITIONS
+   (Page-level styles may override)
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 0.6em 0;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   PARAGRAPH TEXT
+   ========================================================= */
+
+p {
+    margin: 0 0 1.2em 0;
+    font-size: 1rem;
+    /* equals 14px */
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   IMAGES
+   ========================================================= */
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+/* =========================================================
+   STRUCTURAL ELEMENTS
+   ========================================================= */
+
+main {
+    display: block;
+}
+
+
+/* =========================================================
+   INTENTIONALLY EXCLUDED RESETS
+   ---------------------------------------------------------
+   Avoided to preserve predictable scaling and accessibility:
+   ❌ html { font-size: 62.5%; }
+   ❌ body { font-size: 0.875rem; }
+   ❌ * { font-size: inherit; }
+   ========================================================= */
+
+
+/* =========================================================
+   CONTENT TYPOGRAPHY
+   ========================================================= */
+
+.content,
+.page,
+.article {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* Paragraph alignment for long-form reading */
+
+.content p,
+.page p,
+.article p {
+    text-align: justify;
+    text-align-last: center;
+    margin-bottom: 1em;
+}
+
+
+/* =========================================================
+   IMAGE PLACEHOLDERS
+   ========================================================= */
+
+.image-placeholder {
+    width: 100%;
+    max-width: 500px;
+    height: 280px;
+    margin: 24px auto;
+    border: 1px dashed #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+    color: #555;
+    font-size: 14px;
+}
+
+
+/* Figure caption styling */
+
+.image-caption {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    margin-top: 6px;
+}

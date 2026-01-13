@@ -1,0 +1,37 @@
+.hero {
+    text-align: center;
+    padding: 3rem 1.5rem;
+}
+
+.hero-figure {
+    margin: 2rem auto 0;
+    max-width: 100%;
+}
+
+.hero-garuda {
+    width: 5cm;
+    height: 7cm;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    border: 3px solid #b08d57;
+    background-color: #f4f1ea;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.hero-caption {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #6b4e2e;
+}
+
+
+/* Mobile safety */
+
+@media (max-width: 480px) {
+    .hero-garuda {
+        width: 220px;
+        height: 300px;
+    }
+}

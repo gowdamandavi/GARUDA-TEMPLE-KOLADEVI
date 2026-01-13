@@ -1,0 +1,435 @@
+/* Base layout and typography */
+
+
+/* ===== GLOBAL BASE TYPOGRAPHY (FINAL) ===== */
+
+
+/* ===== GLOBAL TYPOGRAPHY BASE (AUTHORITATIVE) ===== */
+
+body {
+    background: #b11212;
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 0;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+:root {
+    --bg: #faf6ef;
+    --panel: #fffdf8;
+    --muted: #7a5a36;
+    --accent: #8b5a1e;
+    --accent-strong: #b46a13;
+    --text: #3a2b18;
+    --shadow: rgba(50, 38, 20, 0.12);
+    --max-width: 1100px;
+    --container-padding: 20px;
+    --radius: 10px;
+    font-family: "Noto Sans Kannada", "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+
+/* Header */
+
+.site-header {
+    background: linear-gradient(180deg, rgba(255, 251, 246, 1) 0%, rgba(255, 249, 242, 1) 100%);
+    border-bottom: 1px solid rgba(130, 98, 60, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    backdrop-filter: blur(4px);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 0;
+}
+
+.brand {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.brand-mark {
+    font-size: 28px;
+    line-height: 1;
+}
+
+.brand-title {
+    display: block;
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 1.05rem;
+}
+
+.brand-sub {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+
+/* Nav */
+
+.main-nav {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.nav-link:hover {
+    background: rgba(180, 106, 19, 0.06);
+    color: var(--accent);
+}
+
+.nav-link.active {
+    background: linear-gradient(90deg, rgba(180, 106, 19, 0.09), rgba(139, 90, 30, 0.04));
+    color: var(--accent-strong);
+}
+
+
+/* Main site container */
+
+.site-main {
+    padding: 28px 0 60px;
+    min-height: 60vh;
+}
+
+
+/* Page wrappers */
+
+.page {
+    background: transparent;
+    padding: 8px 0;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.hero-image {
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 26px var(--shadow);
+    margin-top: 16px;
+}
+
+
+/* Title styles used by pages */
+
+h1,
+h2,
+h3 {
+    color: var(--accent);
+    margin: 0 0 12px 0;
+}
+
+p {
+    color: var(--text);
+    margin: 0 0 16px 0;
+    line-height: 1.75;
+}
+
+
+/* Deity / Legend styles (based on previous CSS) */
+
+.legend-section,
+.unique-deity-page,
+.about-page,
+.legend-page {
+    padding: 28px;
+    max-width: 960px;
+    margin: 12px auto 24px;
+    background: var(--panel);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 20px rgba(50, 38, 20, 0.04);
+}
+
+
+/* Title specific */
+
+.legend-title {
+    font-size: 1.9rem;
+    text-align: center;
+    margin-bottom: 18px;
+    font-weight: 700;
+    color: var(--accent-strong);
+}
+
+
+/* Images used in legend / deity pages */
+
+.legend-image img,
+.legend-image-wide img,
+.deity-main,
+.about-figure img,
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 16px 0;
+    box-shadow: 0 6px 18px var(--shadow);
+}
+
+
+/* Callout */
+
+.legend-highlight {
+    background-color: #fff1cc;
+    padding: 14px 18px;
+    border-left: 6px solid var(--accent-strong);
+    margin: 18px 0;
+    font-weight: 600;
+    border-radius: 6px;
+}
+
+
+/* Gallery grid */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+
+/* Booking / contact form styles (previously provided) */
+
+.booking-page {
+    max-width: 720px;
+    margin: 36px auto;
+    padding: 18px;
+    background: var(--panel);
+    border-radius: 10px;
+    color: var(--text);
+    box-shadow: 0 6px 18px rgba(60, 40, 20, 0.06);
+}
+
+.booking-page h1 {
+    color: var(--accent);
+    margin-top: 0;
+}
+
+.booking-form {
+    display: grid;
+    gap: 12px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #e6dccb;
+    box-sizing: border-box;
+    background: white;
+}
+
+.error {
+    color: #9b2b2b;
+    font-size: 0.95rem;
+    margin-top: 6px;
+}
+
+.success {
+    background: #ebf6ea;
+    border-left: 4px solid #2f8a3a;
+    padding: 10px;
+    margin-top: 8px;
+    color: #27672a;
+    border-radius: 6px;
+}
+
+.form-actions {
+    margin-top: 8px;
+    display: flex;
+    gap: 8px;
+}
+
+button {
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+
+/* Footer */
+
+.site-footer {
+    border-top: 1px solid rgba(130, 98, 60, 0.06);
+    background: transparent;
+    padding: 18px 0;
+    margin-top: 30px;
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-brand {
+    font-weight: 700;
+    color: var(--accent);
+    margin: 0;
+}
+
+.footer-small {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+
+/* Utility */
+
+.small {
+    font-size: 0.9rem;
+    color: var(--muted)
+}
+
+
+/* Responsive */
+
+@media (max-width:900px) {
+    .header-inner {
+        gap: 12px;
+    }
+    .main-nav {
+        gap: 6px;
+    }
+    .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
+@media (max-width:700px) {
+     :root {
+        --container-padding: 14px;
+    }
+    .brand-title {
+        font-size: 0.98rem;
+    }
+    .main-nav {
+        display: flex;
+        gap: 6px;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+    }
+    .gallery-item img {
+        height: 140px;
+        object-fit: cover;
+    }
+    .legend-section,
+    .booking-page {
+        padding: 16px;
+        margin: 12px;
+    }
+}
+
+
+/* ===== GLOBAL TYPOGRAPHY OVERRIDE (FINAL) ===== */
+
+
+/* Set base font size explicitly */
+
+html {
+    font-size: 14px !important;
+}
+
+
+/* Ensure body does not override it */
+
+body {
+    font-size: 14px !important;
+    line-height: 1.8;
+}
