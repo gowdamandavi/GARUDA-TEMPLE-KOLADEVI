@@ -11,6 +11,10 @@ import Legend from "./pages/Legend";
 import Gallery from "./pages/Gallery";
 import Sevas from "./pages/Sevas";
 import Contact from "./pages/Contact";
+import AdminBookings from "./pages/AdminBookings";
+
+// inside <Routes>
+
 
 export default function App() {
   return (
@@ -21,6 +25,7 @@ export default function App() {
         <main className="site-main">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/admin/bookings" element={<AdminBookings />} />
             <Route path="/about" element={<About />} />
             <Route path="/unique-deity" element={<UniqueDeity />} />
             <Route path="/legend" element={<Legend />} />

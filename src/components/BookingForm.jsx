@@ -16,7 +16,11 @@ export default function BookingForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, phone, sevaId }),
+        body: JSON.stringify({
+          name,
+          phone,
+          sevaId,
+        }),
       });
 
       if (!response.ok) {
@@ -27,18 +31,45 @@ export default function BookingForm() {
       setName("");
       setPhone("");
       setSevaId("");
-    } catch (err) {
-      setStatus(`Error: ${err.message}`);
+    } catch (error) {
+      setStatus(`Error: ${error.message}`);
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input value={name} onChange={(e) => setName(e.target.value)} required />
-      <input value={phone} onChange={(e) => setPhone(e.target.value)} required />
-      <input value={sevaId} onChange={(e) => setSevaId(e.target.value)} />
+      <label>
+        Full Name
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      </label>
+
+      <label>
+        Phone
+        <input
+          type="text"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+        />
+      </label>
+
+      <label>
+        Seva ID
+        <input
+          type="text"
+          value={sevaId}
+          onChange={(e) => setSevaId(e.target.value)}
+        />
+      </label>
+
       <button type="submit">Request Booking</button>
-      <p>{status}</p>
+
+      {status && <p>{status}</p>}
     </form>
   );
 }

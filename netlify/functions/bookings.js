@@ -11,17 +11,18 @@ export async function handler(event) {
     if (event.httpMethod !== "POST") {
         return {
             statusCode: 405,
-            body: JSON.stringify({ error: "Method not allowed" }),
+            body: JSON.stringify({ error: "Only POST allowed" }),
         };
     }
 
     try {
-        const { name, phone, sevaId } = JSON.parse(event.body);
+        const body = JSON.parse(event.body);
+        const { name, phone, sevaId } = body;
 
         if (!name || !phone) {
             return {
                 statusCode: 400,
-                body: JSON.stringify({ error: "Name and phone are required" }),
+                body: JSON.stringify({ error: "Name and phone required" }),
             };
         }
 
@@ -37,25 +38,21 @@ export async function handler(event) {
 
         return {
             statusCode: 200,
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 success: true,
                 bookingId: result.rows[0].id,
             }),
         };
     } catch (error) {
-        console.error("Booking error:", error);
+        console.error("DB ERROR:", error);
 
         return {
             statusCode: 500,
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                error: "Database insert failed",
-                details: error.message,
+                error: "Database error",
+                message: error.message,
             }),
         };
     }
