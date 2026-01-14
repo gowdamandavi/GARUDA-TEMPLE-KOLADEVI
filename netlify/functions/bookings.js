@@ -1,3 +1,10 @@
+import { Client } from "pg";
+
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false },
+});
+
 export async function handler(event) {
     if (event.httpMethod !== "POST") {
         return {
@@ -7,23 +14,24 @@ export async function handler(event) {
     }
 
     try {
-        const data = JSON.parse(event.body);
+        const { name, phone, sevaId } = JSON.parse(event.body);
 
-        console.log("Booking received:", data);
+        await client.connect();
+
+        await client.query(
+            "INSERT INTO bookings (name, phone, seva) VALUES ($1, $2, $3)", [name, phone, sevaId]
+        );
+
+        await client.end();
 
         return {
             statusCode: 200,
-            body: JSON.stringify({
-                message: "Booking saved successfully",
-            }),
+            body: JSON.stringify({ message: "Booking saved" }),
         };
     } catch (error) {
-        console.error(error);
         return {
             statusCode: 500,
-            body: JSON.stringify({
-                error: "Internal Server Error",
-            }),
+            body: JSON.stringify({ error: error.message }),
         };
     }
 }
