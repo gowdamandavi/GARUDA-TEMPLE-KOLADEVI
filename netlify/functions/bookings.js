@@ -1,19 +1,21 @@
-import { Client } from "pg";
+import { Pool } from "pg";
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false,
+    },
+});
 
 export async function handler(event) {
-    // Allow only POST requests
     if (event.httpMethod !== "POST") {
         return {
             statusCode: 405,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ error: "Method Not Allowed" }),
+            body: JSON.stringify({ error: "Method not allowed" }),
         };
     }
 
-    let client;
-
     try {
-        // Parse request body
         const { name, phone, sevaId } = JSON.parse(event.body);
 
         if (!name || !phone) {
@@ -23,45 +25,38 @@ export async function handler(event) {
             };
         }
 
-        // Create Neon PostgreSQL client
-        client = new Client({
-            connectionString: process.env.DATABASE_URL,
-            ssl: {
-                rejectUnauthorized: false, // REQUIRED for Neon on Netlify
-            },
-        });
-
-        // Connect to database
-        await client.connect();
-
-        // Insert booking
-        await client.query(
-            `
+        const query = `
       INSERT INTO bookings (name, phone, seva)
       VALUES ($1, $2, $3)
-      `, [name, phone, sevaId || null]
-        );
+      RETURNING id;
+    `;
+
+        const values = [name, phone, sevaId || null];
+
+        const result = await pool.query(query, values);
 
         return {
             statusCode: 200,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ success: true, message: "Booking stored" }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                success: true,
+                bookingId: result.rows[0].id,
+            }),
         };
     } catch (error) {
         console.error("Booking error:", error);
 
         return {
             statusCode: 500,
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify({
-                error: "Database error",
+                error: "Database insert failed",
                 details: error.message,
             }),
         };
-    } finally {
-        // Ensure connection is always closed
-        if (client) {
-            await client.end();
-        }
     }
 }
