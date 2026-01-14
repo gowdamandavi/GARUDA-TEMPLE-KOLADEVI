@@ -164,6 +164,15 @@ export default function Contact() {
           </p>
         </aside>
       </section>
+
+      const res = await fetch("/.netlify/functions/bookings", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(form),
+});
+
     </main>
   );
 }

@@ -9,7 +9,6 @@ export async function handler(event) {
     try {
         const data = JSON.parse(event.body);
 
-        // TODO: Save to Neon DB here
         console.log("Booking received:", data);
 
         return {
@@ -19,9 +18,12 @@ export async function handler(event) {
             }),
         };
     } catch (error) {
+        console.error(error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: error.message }),
+            body: JSON.stringify({
+                error: "Internal Server Error",
+            }),
         };
     }
 }
