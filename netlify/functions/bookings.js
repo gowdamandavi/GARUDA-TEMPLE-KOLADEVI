@@ -1,9 +1,5 @@
-import { Client } from "pg";
-
-const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false },
-});
+import pkg from "pg";
+const { Client } = pkg;
 
 export async function handler(event) {
     if (event.httpMethod !== "POST") {
@@ -13,9 +9,14 @@ export async function handler(event) {
         };
     }
 
-    try {
-        const { name, phone, sevaId } = JSON.parse(event.body);
+    const { name, phone, sevaId } = JSON.parse(event.body);
 
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
+    });
+
+    try {
         await client.connect();
 
         await client.query(
@@ -26,7 +27,7 @@ export async function handler(event) {
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: "Booking saved" }),
+            body: JSON.stringify({ success: true }),
         };
     } catch (error) {
         return {
