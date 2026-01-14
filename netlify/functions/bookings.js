@@ -1,26 +1,22 @@
-import pkg from "pg";
-const { Client } = pkg;
+import { Client } from "pg";
 
 export async function handler(event) {
     if (event.httpMethod !== "POST") {
-        return {
-            statusCode: 405,
-            body: "Method Not Allowed",
-        };
+        return { statusCode: 405, body: "Method Not Allowed" };
     }
 
-    const { name, phone, sevaId } = JSON.parse(event.body);
-
-    const client = new Client({
-        connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false },
-    });
-
     try {
+        const { name, phone, sevaId: seva } = JSON.parse(event.body);
+
+        const client = new Client({
+            connectionString: process.env.DATABASE_URL,
+            ssl: { rejectUnauthorized: false },
+        });
+
         await client.connect();
 
         await client.query(
-            "INSERT INTO bookings (name, phone, seva) VALUES ($1, $2, $3)", [name, phone, sevaId]
+            "INSERT INTO bookings (name, phone, seva) VALUES ($1, $2, $3)", [name, phone, seva]
         );
 
         await client.end();
@@ -32,7 +28,9 @@ export async function handler(event) {
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: error.message }),
+            body: JSON.stringify({
+                error: error.message,
+            }),
         };
     }
 }
