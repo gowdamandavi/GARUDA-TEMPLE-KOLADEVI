@@ -42,7 +42,7 @@ export default function Contact() {
     <main className="page contact-page" aria-labelledby="contact-heading">
       <h1 id="contact-heading">Contact & Booking</h1>
 
-      {/* ================= Memorial Plaque ================= */}
+      {/* Memorial Plaque */}
       <section className="memorial-section" aria-labelledby="memorial-heading">
         <div className="memorial-frame">
           <h2 id="memorial-heading" className="memorial-title">
@@ -67,7 +67,8 @@ export default function Contact() {
               </p>
 
               <p className="memorial-description">
-                Former TDB Member, Gujjanahalli, Mulabagilu. <br />
+                Former TDB Member, Gujjanahalli, Mulabagilu.
+                <br />
                 Grandson of Sri Nanje Gowda, who constructed the historic{" "}
                 <em>Sri Venugopala Swamy Temple</em>.
               </p>
@@ -89,7 +90,7 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ================= Booking Form ================= */}
+      {/* Booking Form */}
       <section className="contact-grid">
         <div className="contact-form">
           <h2>Book a Seva</h2>
@@ -142,7 +143,7 @@ export default function Contact() {
           )}
         </div>
 
-        {/* ================= Map ================= */}
+        {/* Map */}
         <aside className="map-aside" aria-label="temple location">
           <h2>How to Reach</h2>
           <p>
@@ -164,15 +165,6 @@ export default function Contact() {
           </p>
         </aside>
       </section>
-
-      const res = await fetch("/.netlify/functions/bookings", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(form),
-});
-
     </main>
   );
 }
