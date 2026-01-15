@@ -20,14 +20,14 @@ export default function App() {
       <main style={{ minHeight: "80vh", padding: "20px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/about" element={<About />} />
           <Route path="/unique-deity" element={<UniqueDeity />} />
           <Route path="/legend" element={<Legend />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/sevas" element={<Sevas />} />
           <Route path="/contact" element={<Contact />} />
 
-          {/* Admin route (not linked in menu) */}
+          {/* Admin route (intentionally hidden from menu) */}
           <Route path="/admin" element={<AdminBookings />} />
         </Routes>
       </main>
@@ -36,3 +36,4 @@ export default function App() {
     </>
   );
 }
+
