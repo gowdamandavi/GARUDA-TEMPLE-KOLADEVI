@@ -1,19 +1,22 @@
 import React, { useEffect, useContext } from "react";
 import "./About.css";
 
+/* ===== Images ===== */
 import venugopalaImg from "../assets/images/venugopalswamygujjanahalli.png";
 import koladeviMorningImg from "../assets/images/koladevi-garuda-temple-morning.png";
 import garudaIconographyImg from "../assets/images/garuda-iconography.png";
 import communityFestivalImg from "../assets/images/community-temple-festival.png";
 
+/* ===== Icons ===== */
 import serviceIcon from "../assets/icons/service.png";
 import loyaltyIcon from "../assets/icons/loyalty.png";
 import moralStrengthIcon from "../assets/icons/moral-strength.png";
 
+/* ===== Context & Data ===== */
 import { LanguageContext } from "../context/LanguageContext";
 import { translations } from "../data/translations";
 
-/* ================= Fade-in on Scroll ================= */
+/* ================= Fade-in on Scroll Hook ================= */
 function useFadeInOnScroll() {
   useEffect(() => {
     const elements = document.querySelectorAll(".fade-in");
@@ -36,7 +39,7 @@ function useFadeInOnScroll() {
 }
 
 /* ================= About Page ================= */
-const AboutPage = () => {
+const About = () => {
   useFadeInOnScroll();
 
   const { lang, toggleLanguage } = useContext(LanguageContext);
@@ -52,47 +55,43 @@ const AboutPage = () => {
 
   return (
     <main className="about-page">
-
-      {/* ===== Page Controls ===== */}
+      {/* ===== Controls ===== */}
       <div className="page-controls">
         <button className="theme-toggle" onClick={toggleTheme}>
           🌗 Evening Darshan
         </button>
-
         <button className="lang-toggle" onClick={toggleLanguage}>
           🕉️ {lang === "en" ? "ಕನ್ನಡ" : "English"}
         </button>
       </div>
 
-      {/* ===== Hero Section ===== */}
+      {/* ===== Hero ===== */}
       <section className="hero-section fade-in">
         <div className="hero-content">
-
           <div className="hero-text">
             <h1>{t.siteTitle}</h1>
             <p className="hero-subtitle">{t.subtitle}</p>
 
-            <section className="service-sanctuary-section fade-in">
-              <h2 className="service-sanctuary-title">
+            <section className="service-sanctuary-section">
+              <h2>
                 A rare Vaishnava sanctuary where devotion is defined through service
               </h2>
 
               <p>
                 Koladevi Garuda Temple represents a philosophically distinctive
-                Vaishnava sanctuary in which devotion is articulated through
+                Vaishnava sanctuary in which devotion is expressed through
                 disciplined, selfless service.
               </p>
 
               <p>
-                Unlike conventional Vaishnava shrines centered on divine authority,
-                this temple accords primacy to Garuda as a moral exemplar whose life
+                Unlike conventional shrines centered on divine authority, this
+                temple accords primacy to Garuda as a moral exemplar whose life
                 embodies loyalty, restraint, and conscious devotion.
               </p>
 
               <p>
                 Devotion here is understood as ethical responsibility rather than
-                symbolic reverence, encouraging devotees to embody dharma through
-                daily conduct.
+                symbolic reverence, encouraging adherence to dharma in daily life.
               </p>
 
               <p>
@@ -110,7 +109,6 @@ const AboutPage = () => {
               loading="eager"
             />
           </div>
-
         </div>
       </section>
 
@@ -132,9 +130,8 @@ const AboutPage = () => {
         </figure>
 
         <p>
-          The theological orientation of Koladevi Garuda Temple emphasizes
-          service-centered devotion over ritual grandeur or cosmic authority.
-          Garuda is venerated not merely as the divine vehicle, but as a conscious
+          The temple emphasizes service-centered devotion over ritual grandeur.
+          Garuda is revered not merely as the divine vehicle, but as a conscious
           moral agent whose devotion is expressed through action.
         </p>
 
@@ -200,7 +197,6 @@ const AboutPage = () => {
       {/* ===== Maps ===== */}
       <section className="content-section fade-in">
         <h2>{t.howToReach} – Koladevi Garuda Temple</h2>
-
         <div className="map-container">
           <iframe
             title="Koladevi Garuda Temple Location"
@@ -212,7 +208,6 @@ const AboutPage = () => {
 
       <section className="content-section fade-in">
         <h2>{t.howToReach} – Gujjanahalli Venugopala Temple</h2>
-
         <div className="map-container small-map">
           <iframe
             title="Sri Venugopala Swamy Temple, Gujjanahalli"
@@ -229,12 +224,14 @@ const AboutPage = () => {
         <address className="contact-card">
           <p><strong>Contact Person:</strong><br />Mattanahalli Gopal</p>
           <p><strong>Address:</strong><br />Gujjanahalli, Mulabagal Taluk, Karnataka</p>
-          <p><strong>Mobile:</strong><br /><a href="tel:8095913703">80959 13703</a></p>
+          <p>
+            <strong>Mobile:</strong><br />
+            <a href="tel:8095913703">80959 13703</a>
+          </p>
         </address>
       </section>
-
     </main>
   );
 };
 
-export default AboutPage;
+export default About;

@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
-import About from "./pages/AboutPage";
+import About from "./pages/About";
 import UniqueDeity from "./pages/UniqueDeity";
 import Legend from "./pages/Legend";
 import Gallery from "./pages/Gallery";
@@ -26,8 +26,6 @@ export default function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/sevas" element={<Sevas />} />
           <Route path="/contact" element={<Contact />} />
-
-          {/* Admin route (intentionally hidden from menu) */}
           <Route path="/admin" element={<AdminBookings />} />
         </Routes>
       </main>
@@ -36,4 +34,3 @@ export default function App() {
     </>
   );
 }
-
