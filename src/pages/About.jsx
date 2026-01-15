@@ -4,16 +4,16 @@ import "./About.css";
 import venugopalaImg from "../assets/images/venugopalswamygujjanahalli.png";
 import koladeviMorningImg from "../assets/images/koladevi-garuda-temple-morning.png";
 import garudaIconographyImg from "../assets/images/garuda-iconography.png";
+import communityFestivalImg from "../assets/images/community-temple-festival.png";
+
 import serviceIcon from "../assets/icons/service.png";
 import loyaltyIcon from "../assets/icons/loyalty.png";
 import moralStrengthIcon from "../assets/icons/moral-strength.png";
-import communityFestivalImg from "../assets/images/community-temple-festival.png";
 
 import { LanguageContext } from "../context/LanguageContext";
 import { translations } from "../data/translations";
 
-
-/* ================= Scroll Fade-in Hook ================= */
+/* ================= Fade-in on Scroll ================= */
 function useFadeInOnScroll() {
   useEffect(() => {
     const elements = document.querySelectorAll(".fade-in");
@@ -35,16 +35,13 @@ function useFadeInOnScroll() {
   }, []);
 }
 
-/* ================= Main Component ================= */
+/* ================= About Page ================= */
 const AboutPage = () => {
   useFadeInOnScroll();
 
- const { lang, toggleLanguage } = useContext(LanguageContext);
-const t = translations[lang].about;
+  const { lang, toggleLanguage } = useContext(LanguageContext);
+  const t = translations[lang].about;
 
-
-
-  /* ===== Dark Mode Toggle ===== */
   const toggleTheme = () => {
     const current = document.documentElement.getAttribute("data-theme");
     document.documentElement.setAttribute(
@@ -56,7 +53,7 @@ const t = translations[lang].about;
   return (
     <main className="about-page">
 
-      {/* ===== Controls ===== */}
+      {/* ===== Page Controls ===== */}
       <div className="page-controls">
         <button className="theme-toggle" onClick={toggleTheme}>
           🌗 Evening Darshan
@@ -67,7 +64,7 @@ const t = translations[lang].about;
         </button>
       </div>
 
-      {/* ================= HERO ================= */}
+      {/* ===== Hero Section ===== */}
       <section className="hero-section fade-in">
         <div className="hero-content">
 
@@ -75,49 +72,35 @@ const t = translations[lang].about;
             <h1>{t.siteTitle}</h1>
             <p className="hero-subtitle">{t.subtitle}</p>
 
-           <section className="service-sanctuary-section fade-in">
-  <h2 className="service-sanctuary-title">
-    A rare Vaishnava sanctuary where devotion is defined through service
-  </h2>
+            <section className="service-sanctuary-section fade-in">
+              <h2 className="service-sanctuary-title">
+                A rare Vaishnava sanctuary where devotion is defined through service
+              </h2>
 
-  <div className="service-sanctuary-content">
-    <p>
-      Koladevi Garuda Temple represents a rare and philosophically distinctive
-      Vaishnava sanctuary in which devotion is articulated primarily through the
-      principle of selfless service.
-    </p>
+              <p>
+                Koladevi Garuda Temple represents a philosophically distinctive
+                Vaishnava sanctuary in which devotion is articulated through
+                disciplined, selfless service.
+              </p>
 
-    <p>
-      Within the broader Vaishnava tradition, worship is most often centered on
-      Lord Vishnu or one of his incarnations, emphasizing divine sovereignty,
-      grace, and salvific power. In contrast, this sacred space accords primacy
-      to Garuda, not merely as the divine vehicle of Vishnu, but as an exemplary
-      figure whose life embodies disciplined service, loyalty, and unwavering
-      commitment to dharma.
-    </p>
+              <p>
+                Unlike conventional Vaishnava shrines centered on divine authority,
+                this temple accords primacy to Garuda as a moral exemplar whose life
+                embodies loyalty, restraint, and conscious devotion.
+              </p>
 
-    <p>
-      This theological orientation foregrounds ethical conduct and devotional
-      responsibility as central religious ideals. Garuda is venerated here as
-      a conscious and morally resolute being whose devotion is expressed through
-      action rather than authority.
-    </p>
+              <p>
+                Devotion here is understood as ethical responsibility rather than
+                symbolic reverence, encouraging devotees to embody dharma through
+                daily conduct.
+              </p>
 
-    <p>
-      The temple’s traditions encourage devotees to internalize this model,
-      presenting service not as an auxiliary religious duty but as the very
-      foundation of spiritual life.
-    </p>
-
-    <p>
-      Through sustained ritual practice, festivals, and communal observances,
-      the temple functions not only as a site of worship but also as a formative
-      institution that transmits values of loyalty, restraint, and ethical
-      action across generations.
-    </p>
-  </div>
-</section>
-
+              <p>
+                Through ritual, festivals, and communal observances, the temple
+                functions as a living institution transmitting values across
+                generations.
+              </p>
+            </section>
           </div>
 
           <div className="hero-image">
@@ -133,34 +116,7 @@ const t = translations[lang].about;
 
       <div className="section-divider fade-in"></div>
 
-      {/* ================= RISING SUN ================= */}
-      <section className="rising-sun-section fade-in">
-        <h2 className="rising-sun-title">
-          A Sanctuary of Service-Centered Devotion
-        </h2>
-
-        <div className="sun-divider"></div>
-
-        <p>
-          Koladevi Garuda Temple represents a rare Vaishnava sanctuary in which
-          devotion is expressed primarily through the ideal of selfless service.
-        </p>
-
-        <p>
-          The shrine places Garuda at the heart of worship, emphasizing ethical
-          discipline and conscious devotion rather than authority or power.
-        </p>
-      </section>
-
-      {/* ================= QUOTE ================= */}
-      <section className="quote-section fade-in">
-        <blockquote>
-          “The sanctum does not enthrone the ruler of the cosmos,
-          but the embodiment of unwavering devotion.”
-        </blockquote>
-      </section>
-
-      {/* ================= THEOLOGY ================= */}
+      {/* ===== Theology ===== */}
       <section className="content-section fade-in">
         <h2>Theology of Garuda Worship</h2>
 
@@ -176,73 +132,72 @@ const t = translations[lang].about;
         </figure>
 
         <p>
-Koladevi Garuda Temple represents a rare Vaishnava sanctuary in which devotion is articulated primarily through the ideal of selfless service rather than ritual grandeur or divine authority. Within the broader Vaishnava tradition, worship is most often oriented toward Lord Vishnu or his incarnations, emphasizing sovereignty, grace, and cosmic order. In contrast, this sacred space places Garuda at the very heart of worship, offering a distinctive theological perspective grounded in ethical discipline and conscious devotion.
-
-Here, Garuda is revered not merely as the divine vehicle, but as a moral exemplar whose life embodies unwavering loyalty, restraint, and purposeful service. The shrine thus redirects the devotee’s attention from power to responsibility, from dominance to humility. Devotion is understood not as passive reverence, but as an active moral commitment expressed through disciplined action and inner clarity.
-
-The temple’s guiding philosophy affirms that spiritual fulfillment arises through consistency in service and adherence to dharma in everyday life. Ritual practices, festivals, and communal observances reinforce this vision, cultivating a collective ethos rooted in responsibility, mutual care, and ethical awareness. Over generations, this service-centered orientation has shaped the religious consciousness of the surrounding community, sustaining a lived tradition of devotion grounded in action rather than abstraction.
-
-As eloquently captured in its guiding sentiment, “The sanctum does not enthrone the ruler of the cosmos, but the embodiment of unwavering devotion.” In affirming Garuda as the focal point of worship, Koladevi Garuda Temple offers a profound and enduring model of Vaishnava faith—one that remains deeply relevant by placing service at the core of spiritual life.
+          The theological orientation of Koladevi Garuda Temple emphasizes
+          service-centered devotion over ritual grandeur or cosmic authority.
+          Garuda is venerated not merely as the divine vehicle, but as a conscious
+          moral agent whose devotion is expressed through action.
         </p>
-        
 
+        <blockquote className="quote-section">
+          “The sanctum does not enthrone the ruler of the cosmos,
+          but the embodiment of unwavering devotion.”
+        </blockquote>
       </section>
 
-      {/* ================= VALUES ================= */}
+      {/* ===== Values ===== */}
       <section className="values-section fade-in">
         <div className="value-card">
-          <img src={serviceIcon} alt="Service" className="value-icon" />
+          <img src={serviceIcon} alt="Service" />
           <h3>{t.service}</h3>
           <p>{t.serviceDesc}</p>
         </div>
 
         <div className="value-card">
-          <img src={loyaltyIcon} alt="Loyalty" className="value-icon" />
+          <img src={loyaltyIcon} alt="Loyalty" />
           <h3>{t.loyalty}</h3>
           <p>{t.loyaltyDesc}</p>
         </div>
 
         <div className="value-card">
-          <img src={moralStrengthIcon} alt="Moral Strength" className="value-icon" />
+          <img src={moralStrengthIcon} alt="Moral Strength" />
           <h3>{t.moralStrength}</h3>
           <p>{t.moralStrengthDesc}</p>
         </div>
       </section>
 
-      {/* ================= COMMUNITY ================= */}
+      {/* ===== Community ===== */}
       <section className="content-section soft-bg fade-in">
         <h2>A Living Sacred Institution</h2>
 
         <img
-          className="section-image"
           src={communityFestivalImg}
           alt="Community gathering during temple festival"
+          className="section-image"
           loading="lazy"
         />
 
         <p>
-          The temple functions as a gathering ground where memory, identity,
-          and devotion converge across generations.
+          The temple serves as a communal space where devotion, memory,
+          and ethical identity converge across generations.
         </p>
       </section>
 
-      {/* ================= SECOND TEMPLE ================= */}
+      {/* ===== Associated Temple ===== */}
       <section className="content-section fade-in">
-        <figure className="temple-figure fade-in">
-  <img
-    src={venugopalaImg}
-    alt="Sri Venugopala Swamy Temple at Gujjanahalli"
-    loading="lazy"
-  />
-  <figcaption>
-    Sri Venugopala Swamy Temple
-    <span>Gujjanahalli, Mulabagilu Taluk, Karnataka</span>
-  </figcaption>
-</figure>
-
+        <figure className="temple-figure">
+          <img
+            src={venugopalaImg}
+            alt="Sri Venugopala Swamy Temple at Gujjanahalli"
+            loading="lazy"
+          />
+          <figcaption>
+            Sri Venugopala Swamy Temple
+            <span>Gujjanahalli, Mulabagilu Taluk, Karnataka</span>
+          </figcaption>
+        </figure>
       </section>
 
-      {/* ================= MAP – KOLADEVI ================= */}
+      {/* ===== Maps ===== */}
       <section className="content-section fade-in">
         <h2>{t.howToReach} – Koladevi Garuda Temple</h2>
 
@@ -250,68 +205,33 @@ As eloquently captured in its guiding sentiment, “The sanctum does not enthron
           <iframe
             title="Koladevi Garuda Temple Location"
             src="https://www.google.com/maps?q=Koladevi+Garuda+Temple+Mulabagilu&output=embed"
-            width="100%"
-            height="420"
-            style={{ border: 0 }}
             loading="lazy"
-          ></iframe>
+          />
         </div>
       </section>
+
       <section className="content-section fade-in">
-  <h2>{t.howToReach }--Gujjanahalli Venugopala Temple  </h2>
+        <h2>{t.howToReach} – Gujjanahalli Venugopala Temple</h2>
 
-  <p>{t.howToReachDesc}</p>
+        <div className="map-container small-map">
+          <iframe
+            title="Sri Venugopala Swamy Temple, Gujjanahalli"
+            src="https://www.google.com/maps?q=Sri+Venugopala+Swamy+Temple+Gujjanahalli+Mulbagal&output=embed"
+            loading="lazy"
+          />
+        </div>
+      </section>
 
-  <div className="map-container small-map">
-    <iframe
-      title="Sri Venugopala Swamy Temple, Gujjanahalli"
-      src="https://www.google.com/maps?q=Sri+Venugopala+Swamy+Temple+Gujjanahalli+Mulbagal&output=embed"
-      width="100%"
-      height="260"
-      style={{ border: 0 }}
-      loading="lazy"
-      referrerPolicy="no-referrer-when-downgrade"
-    ></iframe>
-  </div>
+      {/* ===== Contact ===== */}
+      <section className="content-section contact-section fade-in">
+        <h2>Contact Information</h2>
 
-  <p className="map-link">
-    <a
-      href="https://www.google.com/maps?q=Sri+Venugopala+Swamy+Temple+Gujjanahalli+Mulbagal"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {t.openInMaps}
-    </a>
-  </p>
-</section>
-<section className="theology-narrative">
-  <p>Koladevi Garuda Temple represents a rare Vaishnava sanctuary...</p>
-</section>
-
-{/* ================= CONTACT SECTION ================= */}
-<section className="content-section contact-section fade-in">
-  <h2>Contact Information</h2>
-
-  <address className="contact-card">
-    <p>
-      <strong>Contact Person:</strong><br />
-      Mattanahalli Gopal
-    </p>
-
-    <p>
-      <strong>Address:</strong><br />
-       Gujjanahalli,<br />
-      Mudiyanur, Mulabagal Taluk,<br />
-      Kolar District, Karnataka
-    </p>
-
-    <p>
-      <strong>Mobile:</strong><br />
-      <a href="tel:8095913703">80959 13703</a>
-    </p>
-  </address>
-</section>
-
+        <address className="contact-card">
+          <p><strong>Contact Person:</strong><br />Mattanahalli Gopal</p>
+          <p><strong>Address:</strong><br />Gujjanahalli, Mulabagal Taluk, Karnataka</p>
+          <p><strong>Mobile:</strong><br /><a href="tel:8095913703">80959 13703</a></p>
+        </address>
+      </section>
 
     </main>
   );
