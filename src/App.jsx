@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
-import About from "./pages/About";
+import About from "./pages/AboutPage";
 import UniqueDeity from "./pages/UniqueDeity";
 import Legend from "./pages/Legend";
 import Gallery from "./pages/Gallery";
@@ -20,7 +20,7 @@ export default function App() {
       <main style={{ minHeight: "80vh", padding: "20px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/unique-deity" element={<UniqueDeity />} />
           <Route path="/legend" element={<Legend />} />
           <Route path="/gallery" element={<Gallery />} />
