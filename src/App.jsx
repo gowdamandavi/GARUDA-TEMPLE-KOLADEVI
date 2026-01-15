@@ -1,44 +1,64 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+export default function AdminBookings() {
+  const [bookings, setBookings] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
-import Home from "./pages/Home";
-import About from "./pages/About";
-import UniqueDeity from "./pages/UniqueDeity";
-import Legend from "./pages/Legend";
-import Gallery from "./pages/Gallery";
-import Sevas from "./pages/Sevas";
-import Contact from "./pages/Contact";
-import AdminBookings from "./pages/AdminBookings";
+  useEffect(() => {
+    fetch("/.netlify/functions/bookings-list")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch bookings");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setBookings(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
 
-// inside <Routes>
-
-
-export default function App() {
   return (
-    <BrowserRouter>
-      <div className="app">
-        <Header />
+    <main className="page admin-page">
+      <h1>Admin – Seva Bookings</h1>
 
-        <main className="site-main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/admin/bookings" element={<AdminBookings />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/unique-deity" element={<UniqueDeity />} />
-            <Route path="/legend" element={<Legend />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/sevas" element={<Sevas />} />
-            <Route path="/contact" element={<Contact />} />
-            {/* fallback to home for unknown routes */}
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </main>
+      {loading && <p>Loading bookings…</p>}
 
-        <Footer />
-      </div>
-    </BrowserRouter>
+      {error && <p className="error">Error: {error}</p>}
+
+      {!loading && bookings.length === 0 && (
+        <p>No bookings found.</p>
+      )}
+
+      {!loading && bookings.length > 0 && (
+        <table border="1" cellPadding="10" cellSpacing="0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Seva</th>
+              <th>Booked On</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bookings.map((b) => (
+              <tr key={b.id}>
+                <td>{b.id}</td>
+                <td>{b.name}</td>
+                <td>{b.phone}</td>
+                <td>{b.seva}</td>
+                <td>{new Date(b.created_at).toLocaleString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </main>
   );
 }

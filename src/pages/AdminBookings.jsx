@@ -1,36 +1,49 @@
 import React, { useEffect, useState } from "react";
 
-export default function Admin() {
+export default function AdminBookings() {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/.netlify/functions/bookings-list")
       .then((res) => {
-        if (!res.ok) throw new Error("Failed to load bookings");
+        if (!res.ok) {
+          throw new Error("Failed to fetch bookings");
+        }
         return res.json();
       })
-      .then(setBookings)
-      .catch((err) => setError(err.message));
+      .then((data) => {
+        setBookings(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
   return (
     <main className="page admin-page">
       <h1>Admin – Seva Bookings</h1>
 
-      {error && <p className="error">{error}</p>}
+      {loading && <p>Loading bookings…</p>}
 
-      {bookings.length === 0 ? (
+      {error && <p className="error">Error: {error}</p>}
+
+      {!loading && bookings.length === 0 && (
         <p>No bookings found.</p>
-      ) : (
-        <table border="1" cellPadding="8">
+      )}
+
+      {!loading && bookings.length > 0 && (
+        <table border="1" cellPadding="10" cellSpacing="0">
           <thead>
             <tr>
               <th>ID</th>
               <th>Name</th>
               <th>Phone</th>
               <th>Seva</th>
-              <th>Date</th>
+              <th>Booked On</th>
             </tr>
           </thead>
           <tbody>

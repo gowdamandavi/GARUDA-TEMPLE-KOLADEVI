@@ -6,14 +6,12 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false },
 });
 
-export async function handler(event) {
-    if (event.httpMethod !== "GET") {
-        return { statusCode: 405, body: "Method Not Allowed" };
-    }
-
+export async function handler() {
     try {
         const result = await pool.query(
-            "SELECT id, name, phone, seva, created_at FROM bookings ORDER BY created_at DESC"
+            `SELECT id, name, phone, seva, created_at
+       FROM bookings
+       ORDER BY created_at DESC`
         );
 
         return {
@@ -26,10 +24,7 @@ export async function handler(event) {
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify({
-                error: "Failed to fetch bookings",
-                details: error.message,
-            }),
+            body: JSON.stringify({ error: error.message }),
         };
     }
 }
