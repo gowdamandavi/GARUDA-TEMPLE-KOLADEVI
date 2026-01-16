@@ -6,70 +6,75 @@ export default function BookingForm() {
   const [sevaId, setSevaId] = useState("");
   const [status, setStatus] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handlePayment = async (e) => {
     e.preventDefault();
-    setStatus("Submitting...");
 
-    try {
-      const response = await fetch("/.netlify/functions/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          phone,
-          sevaId,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Server error ${response.status}`);
-      }
-
-      setStatus("Booking submitted successfully.");
-      setName("");
-      setPhone("");
-      setSevaId("");
-    } catch (error) {
-      setStatus(`Error: ${error.message}`);
+    if (!window.Razorpay) {
+      setStatus("Payment system not loaded");
+      return;
     }
+
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: 50000, // ₹500
+      currency: "INR",
+      name: "Koladevi Garuda Temple",
+      description: "Seva Booking",
+      handler: async function (response) {
+        try {
+          const res = await fetch("/.netlify/functions/bookings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              phone,
+              sevaId,
+              paymentId: response.razorpay_payment_id,
+            }),
+          });
+
+          if (!res.ok) throw new Error("Booking save failed");
+
+          setStatus("Booking confirmed and payment successful.");
+          setName("");
+          setPhone("");
+          setSevaId("");
+        } catch (err) {
+          setStatus("Payment done, but booking failed.");
+        }
+      },
+      prefill: { name, contact: phone },
+      theme: { color: "#7a5c2e" },
+    };
+
+    new window.Razorpay(options).open();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Full Name
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </label>
+    <form onSubmit={handlePayment}>
+      <input
+        placeholder="Full Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
 
-      <label>
-        Phone
-        <input
-          type="text"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          required
-        />
-      </label>
+      <input
+        placeholder="Phone"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        required
+      />
 
-      <label>
-        Seva ID
-        <input
-          type="text"
-          value={sevaId}
-          onChange={(e) => setSevaId(e.target.value)}
-        />
-      </label>
+      <input
+        placeholder="Seva ID"
+        value={sevaId}
+        onChange={(e) => setSevaId(e.target.value)}
+      />
 
-      <button type="submit">Request Booking</button>
+      <button type="submit">Pay & Confirm Booking</button>
 
-      {status && <p>{status}</p>}
+      <p>{status}</p>
     </form>
   );
 }
