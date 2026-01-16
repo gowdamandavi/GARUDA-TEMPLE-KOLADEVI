@@ -1,26 +1,35 @@
 import React, { useState } from "react";
-
 export default function BookingForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [sevaId, setSevaId] = useState("");
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handlePayment = async (e) => {
     e.preventDefault();
 
     if (!window.Razorpay) {
-      setStatus("Payment system not loaded");
+      setStatus("Payment gateway not loaded. Please refresh the page.");
       return;
     }
 
+    if (!name || !phone) {
+      setStatus("Name and phone number are required.");
+      return;
+    }
+
+    setLoading(true);
+    setStatus("Opening payment gateway…");
+
     const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-      amount: 50000, // ₹500
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID, // MUST exist in .env
+      amount: 50000, // ₹500 (in paise)
       currency: "INR",
       name: "Koladevi Garuda Temple",
       description: "Seva Booking",
-      handler: async function (response) {
+
+      handler: async (response) => {
         try {
           const res = await fetch("/.netlify/functions/bookings", {
             method: "POST",
@@ -33,48 +42,71 @@ export default function BookingForm() {
             }),
           });
 
-          if (!res.ok) throw new Error("Booking save failed");
+          if (!res.ok) {
+            throw new Error("Failed to save booking");
+          }
 
-          setStatus("Booking confirmed and payment successful.");
+          setStatus("Booking confirmed. Payment successful.");
           setName("");
           setPhone("");
           setSevaId("");
-        } catch (err) {
-          setStatus("Payment done, but booking failed.");
+        } catch (error) {
+          setStatus("Payment successful, but booking storage failed.");
+        } finally {
+          setLoading(false);
         }
       },
-      prefill: { name, contact: phone },
-      theme: { color: "#7a5c2e" },
+
+      prefill: {
+        name: name,
+        contact: phone,
+      },
+
+      theme: {
+        color: "#7a5c2e",
+      },
     };
 
-    new window.Razorpay(options).open();
+    const razorpay = new window.Razorpay(options);
+    razorpay.open();
   };
 
   return (
-    <form onSubmit={handlePayment}>
-      <input
-        placeholder="Full Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
+    <form onSubmit={handlePayment} className="booking-form">
+      <label>
+        Full Name
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      </label>
 
-      <input
-        placeholder="Phone"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        required
-      />
+      <label>
+        Phone
+        <input
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+        />
+      </label>
 
-      <input
-        placeholder="Seva ID"
-        value={sevaId}
-        onChange={(e) => setSevaId(e.target.value)}
-      />
+      <label>
+        Seva ID
+        <input
+          type="text"
+          value={sevaId}
+          onChange={(e) => setSevaId(e.target.value)}
+        />
+      </label>
 
-      <button type="submit">Pay & Confirm Booking</button>
+      <button type="submit" disabled={loading}>
+        {loading ? "Processing…" : "Pay & Confirm Booking"}
+      </button>
 
-      <p>{status}</p>
+      {status && <p className="status-message">{status}</p>}
     </form>
   );
 }

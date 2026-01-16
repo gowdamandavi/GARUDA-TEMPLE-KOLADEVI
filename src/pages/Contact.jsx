@@ -1,48 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import kempeGowdaImg from "../assets/images/kempe-gowda.jpg";
 import "./Contact.css";
 
+import BookingForm from "../components/BookingForm";
+
 export default function Contact() {
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    sevaId: "",
-  });
-
-  const [status, setStatus] = useState(null);
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setStatus({ type: "pending" });
-
-    try {
-      const res = await fetch("/.netlify/functions/bookings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      if (!res.ok) {
-        throw new Error(`Server error: ${res.status}`);
-      }
-
-      await res.json();
-
-      setStatus({ type: "success" });
-      setForm({ name: "", phone: "", sevaId: "" });
-    } catch (err) {
-      setStatus({
-        type: "error",
-        message: err.message || "Unable to submit booking request.",
-      });
-    }
-  }
-
   return (
     <main className="page contact-page" aria-labelledby="contact-heading">
       <h1 id="contact-heading">Contact & Booking</h1>
 
-      {/* Memorial Plaque */}
+      {/* ================= Memorial Plaque ================= */}
       <section className="memorial-section" aria-labelledby="memorial-heading">
         <div className="memorial-frame">
           <h2 id="memorial-heading" className="memorial-title">
@@ -90,60 +57,16 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Booking Form */}
+      {/* ================= Booking Section ================= */}
       <section className="contact-grid">
         <div className="contact-form">
           <h2>Book a Seva</h2>
 
-          <form onSubmit={handleSubmit} className="booking-form">
-            <label htmlFor="name">Full name</label>
-            <input
-              id="name"
-              value={form.name}
-              onChange={(e) =>
-                setForm({ ...form, name: e.target.value })
-              }
-              required
-            />
-
-            <label htmlFor="phone">Phone</label>
-            <input
-              id="phone"
-              value={form.phone}
-              onChange={(e) =>
-                setForm({ ...form, phone: e.target.value })
-              }
-              required
-            />
-
-            <label htmlFor="sevaId">Seva (ID)</label>
-            <input
-              id="sevaId"
-              value={form.sevaId}
-              onChange={(e) =>
-                setForm({ ...form, sevaId: e.target.value })
-              }
-            />
-
-            <div className="form-actions">
-              <button type="submit">Request Booking</button>
-            </div>
-          </form>
-
-          {status?.type === "pending" && (
-            <div className="status">Sending…</div>
-          )}
-          {status?.type === "success" && (
-            <div className="success">
-              Booking request submitted successfully.
-            </div>
-          )}
-          {status?.type === "error" && (
-            <div className="error">Error: {status.message}</div>
-          )}
+          {/* Booking + Payment handled inside component */}
+          <BookingForm />
         </div>
 
-        {/* Map */}
+        {/* ================= Map ================= */}
         <aside className="map-aside" aria-label="temple location">
           <h2>How to Reach</h2>
           <p>
